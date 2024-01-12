@@ -73,20 +73,88 @@ Resultado:
 ```bash
 sudo systemctl enable bind9
 sudo systemctl start bind9
+sudo systemctl restart bind9
+sudo systemctl status bind9
 ```
 
 Resultado:
 
 ![Activo el inicio de arranque del servidor](./img/06_dns.png)
 
+![Activo el inicio de arranque del servidor](./img/07_dns.png)
 
+Con el comando ``sudo systemctl enable bind9`` me da error, pero si le cambio el ``bind9`` por ``named.service`` sí me deja, luego le hago el **start** al servicio y muestro el estado del servicio. Comprobamos que se está habilitado e iniciado. A la hora de hacer el **restart** ya no me aparece la línea de warning en amarillo.
 
+5. Reglas firewall:
 
+```bash
+sudo ufw enable
+sudo ufw allow bind9
+sudo ufw status
+```
 
+Resultado:
 
+![Reglas de Firewall](./img/08_dns.png)
 
+6. Probar desde el cliente qué puertos tiene abiertos el servidor, en nuestro ejemplo desde el equipo **Casa** ejecutaremos:
 
+```bash
+exit
+sudo apt install nmap
+nmap 10.0.2.8 -p 1-1024
+```
+
+Resultado:
+
+![Muestro los puertos abiertos del "Servidor"](./img/09_dns.png)
+
+> Por defecto el servicio DNS utiliza el puerto 53.
+
+> Si no tienes instalada esta utilidad, instalalá con: ``sudo apt install nmap``. Esta comprobación también se puede hacer desde el propio servidor, pero es menos fiable que desde otro equipo ya que puede conectarse por localhost.
+
+7. Comprobar en el equipo Servidor qué conexiones tiene abiertas:
+
+```bash
 ssh -p 22 -i clave_trabajo sergio@10.0.2.8
+sudo ss -natp | grep named
+sudo ss -naup | grep named
+```
+
+Resultado:
+
+![Comprobar en el "Servidor" las conexiones abiertas](./img/10_dns.png)
+
+## Archivos de configuración
+
+1. El archivo principal de configuración del ``bind`` es: ``/etc/bind/named.conf``. En él vemos que hace referencia a otros tres archivos de configuración:
+
+* ``/etc/bind/named.conf.options``: hace referencia al archivo de configuración que posee
+opciones genéricas.
+* ``/etc/bind/named.conf.local``: hace referencia al archivo de configuración para opciones
+particulares.
+* ``/etc/bind/named.conf.default-zones``: hace referencia al archivo de configuración de
+zonas.
+
+Abre el archivo y muesta estas referencias.
+
+```bash
+sudo nano /etc/bind/named.conf
+```
+
+Resultado:
+
+![Muestro las referencias a los archivos de configuración](./img/11_dns.png)
+
+## Verificar archivos de configuración
+
+1. Puedes realizar una verificación de los ficheros de configuración y de zona por posibles fallos mediante los comandos ``named-checkconf`` y ``named-checkzone`` respectivamente. Estos comandos suelen ejecutarse con la siguiente sintaxis:
+
+
+
+
+
+
 
 
 
