@@ -50,7 +50,40 @@ sudo apt install bind9 bind9utils
 
 Resultado:
 
-![Instalo "bind 9"](./img/03_ftp.png)
+![Actualizo dependencias](./img/03_dns.png)
+
+![Instalo "bind 9"](./img/04_dns.png))
+
+> La instalación crea el usuario ``bind`` que ejecuta el servicio dns denominado ``named``. Puedes comprobarlo mostrando el contenido del archivo ``/etc/passwd``.
+
+3. Comprobar estado del servicio ``bind``:
+
+```bash
+sudo systemctl status bind9
+```
+
+Resultado:
+
+![Compruebo el estado de "bind 9"](./img/05_dns.png)
+
+> Muestra advertencias ya que aún no lo hemos configurado.
+
+4. Con los siguientes comandos lo activaremos para que se inicie al arrancar el servidor y lo iniciaremos:
+
+```bash
+sudo systemctl enable bind9
+sudo systemctl start bind9
+```
+
+Resultado:
+
+![Activo el inicio de arranque del servidor](./img/06_dns.png)
+
+
+
+
+
+
 
 
 ssh -p 22 -i clave_trabajo sergio@10.0.2.8
