@@ -312,7 +312,7 @@ Vuelvo a ejecutarlo desde **Casa**:
 sudo nano `/etc/bind/named.conf.local`
 ```
 
-Añado una zona con el formato **tuapellido.local**, por ejemplo: **garcia.local, lopez.local**. En este ejemplo usaremos despliegue.local. Esta zona será de la red NAT creada en VirtualBox **10.0.2.0/24**. Crea también su zona inversa.
+Añado una zona con el formato **tuapellido.local**, por ejemplo: **garcia.local, lopez.local**. En este ejemplo usaremos stetcu.local. Esta zona será de la red NAT creada en VirtualBox **10.0.2.0/24**. Crea también su zona inversa.
 
 Resultado:
 
@@ -361,7 +361,7 @@ Resultado:
 5. Verificar el archivo anterior:
 
 ```bash
-sudo named-checkzone despliegue.local /etc/bind/zones/db.despliegue.local
+sudo named-checkzone stetcu.local /etc/bind/zones/db.stetcu.local
 ```
 
 Resultado:
@@ -479,12 +479,12 @@ configurar en un DHCP de modo que se reciban estos datos junto con la configurac
 
 ```bash
 host iesaguadulce.es
-host casa.despliegue.local
+host casa.stetcu.local
 host casa
 host servidor
-host servidor.despliegue.local
+host servidor.stetcu.local
 host server
-host server.despliegue.local
+host server.stetcu.local
 ```
 
 Resultado:
